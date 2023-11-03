@@ -1,43 +1,122 @@
-// src/components/Page2.js
-import React from "react";
+import React, { useState, useEffect } from "react";
 
-function Course() {
+const ValidationPage = () => {
+  const [inputValues, setInputValues] = useState(["", "", "", ""]);
+  let [error, setError] = useState("");
+  const [course, setCourse] = useState("");
+
+  const arrays = [
+    ["123456", "123456", "123456", "123456"],
+    ["111111", "111111", "111111", "111111"],
+  ];
+
+  const validateInput = () => {
+    for (let i = 0; i < arrays.length; i++) {
+      const isValid = inputValues.every(
+        (value, index) => value === arrays[i][index]
+      );
+
+      if (isValid) {
+        //send OSC MESSAGE
+        setCourse(i + 1);
+        setError("");
+        return true;
+      }
+    }
+    setError("Validation failed");
+    //send OSC MESSAGE
+    setCourse("");
+    return false;
+  };
+
+  const handleInputChange = (index, value) => {
+    const newInputValues = [...inputValues];
+    newInputValues[index] = value;
+    setInputValues(newInputValues);
+  };
+
+  const handleKeyPress = (e) => {
+    if (e.shiftKey && e.key === "L") {
+      if (validateInput()) {
+        setError("");
+      }
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener("keydown", handleKeyPress);
+    return () => {
+      window.removeEventListener("keydown", handleKeyPress);
+    };
+  });
+
   return (
     <div>
-      <h1>BEREKENEN KOERS</h1>
-      <div className="container">
-        <div className="row">
-          <div className="col">
+      <div className="row">
+        <h1>BEREKENEN KOERS</h1>
+        <div className="col-6">
+          <div className="co-container co-1">
             <div>Coördinaat huidige locatie</div>
-            <form>
-              <div className="col-xs-2">
-                <input
-                  className="form-control sos-course1-1"
-                  size="2"
-                  maxlength="2"
-                  style={{ fontFamily: "monospace" }}
-                  type="text"
-                  placeholder="--"
-                />
-              </div>
-              <div className="col">
-                <input
-                  className="form-control sos-course1-2"
-                  size="2"
-                  maxlength="4"
-                  style={{ fontFamily: "monospace" }}
-                  type="text"
-                  placeholder="----"
-                />
-              </div>
-            </form>
+            <input
+              className="form-control sos-location caret-color"
+              type="text"
+              value={inputValues[0]}
+              onChange={(e) => handleInputChange(0, e.target.value)}
+              maxLength={6}
+              placeholder="------"
+            />
+            <input
+              className="form-control sos-location caret-color"
+              type="text"
+              value={inputValues[1]}
+              onChange={(e) => handleInputChange(1, e.target.value)}
+              maxLength={6}
+              placeholder="------"
+            />
           </div>
-          <div className="col"></div>
-          <div className="col">Column</div>
+          <div className="co-container co-1">
+            <div>Coördinaat gewenste bestemming</div>
+            <input
+              className="form-control sos-location caret-color"
+              type="text"
+              value={inputValues[2]}
+              onChange={(e) => handleInputChange(2, e.target.value)}
+              maxLength={6}
+              placeholder="------"
+            />
+            <input
+              className="form-control sos-location caret-color"
+              type="text"
+              value={inputValues[3]}
+              onChange={(e) => handleInputChange(3, e.target.value)}
+              maxLength={6}
+              placeholder="------"
+            />
+          </div>
+          <div className="sos-text-label">F11 = BEREKENING MAKEN</div>
+          <div className="col co-container">
+            {error && <p>{error}</p>}
+            {course === 1 && <p>De Koers is 78 graden</p>}
+            {course === 2 && <p>De Koers is 32 graden</p>}
+          </div>
+        </div>
+        <div className="col-4 instructions">
+          <div className="row">
+            INSTRUCTIES KOERS INSTELLEN
+            <br />
+            - Zet autopilot uit 
+            <br />
+            - Draai aan stuurwiel  
+            <br />
+            - Stel gewenste koers in 
+            <br />
+            - Zet autopilot aan   
+            <br />
+          </div>
         </div>
       </div>
     </div>
   );
-}
+};
 
-export default Course;
+export default ValidationPage;

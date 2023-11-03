@@ -1,11 +1,11 @@
 /* styles.css */
-@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Mono&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Courier+Prime&family=IBM+Plex+Mono&display=swap");
 
 body {
   --sos-green: green;
   margin: 0;
-  font-family: "IBM Plex Mono", monospace, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+  font-family: "Courier Prime", monospace, "IBM Plex Mono", "Segoe UI", "Roboto",
+    "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -18,6 +18,12 @@ code {
     monospace;
 }
 
+.caret-color {
+  caret-color: var(
+    --sos-green
+  ) !important; /* Change the color to your desired color */
+}
+
 h2 {
   color: var(--sos-green);
   text-align: center;
@@ -25,7 +31,7 @@ h2 {
 }
 
 :focus {
-  border: 3px solid red;
+  border: 3px solid var(--sos-green);
 }
 .navbar a {
   color: var(--sos-green);
@@ -64,8 +70,15 @@ h2 {
 }
 
 .form-control:focus {
+  outline: none;
+  box-shadow: none;
   color: red; /* Change the text color to red when in focus */
 }
+.sos-location {
+  height: 32px;
+  border: none;
+}
+
 .sos-password-form {
   font-size: 2rem;
 }
@@ -76,6 +89,7 @@ h2 {
   align-items: center;
   color: var(--sos-green);
   margin-top: 50px;
+  margin-bottom: 50px;
   min-height: 50px;
   border-top: 2px solid var(--sos-green);
   border-bottom: 2px solid var(--sos-green);
@@ -86,6 +100,28 @@ h2 {
   text-align: right;
 }
 
+.sos-text-label {
+  padding-bottom: 50px;
+}
+
 .ascii-art-pre {
   height: 12em; /* Adjust the height as needed */
+}
+
+.instructions {
+  border: 2px solid var(--sos-green);
+  padding: 25px;
+  margin-left: 30px;
+}
+.co-1:before {
+  content: "-/-";
+  position: absolute;
+  margin-top: 50px;
+  margin-left: -30px;
+}
+.co-container {
+  padding: 10px;
+  margin-bottom: 20px;
+  padding-left: 40px;
+  border: 2px solid var(--sos-green);
 }

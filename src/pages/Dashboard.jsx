@@ -8,9 +8,8 @@ function BottomBar() {
     return {
       F1: () => navigate("/Course"),
       F2: () => navigate("/Instruction"),
-      F3: () => navigate("/page3"),
-      F4: () => navigate("/page4"),
-      F5: () => navigate("/page5"),
+      F3: () => navigate("/Iceberg"),
+      F4: () => navigate("/Torpedo"),
       // Add more key actions as needed
     };
   }, [navigate]);
@@ -41,12 +40,7 @@ function BottomBar() {
       <h1>HOOFDMENU</h1>
       <p>Druk op de functietoets voor het gewenste programma.</p>
       <table>
-        <thead>
-          <tr>
-            <th>Key</th>
-            <th>Description</th>
-          </tr>
-        </thead>
+        <thead></thead>
         <tbody>
           <tr>
             <td>F1</td>
@@ -63,10 +57,6 @@ function BottomBar() {
           <tr>
             <td>F4</td>
             <td>Torpedo lanceersysteem</td>
-          </tr>
-          <tr>
-            <td>F5</td>
-            <td>Pong</td>
           </tr>
         </tbody>
       </table>
