@@ -1,14 +1,16 @@
-import React, { useState } from "react";
+import React, {useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import { useTranslation } from 'react-i18next';
 
 function HomePage() {
+const { t } = useTranslation();
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
+
   const handlePasswordChange = (e) => {
     setPassword(e.target.value);
-    sendOSCMessage({ name: e.target.value });
+    //sendOSCMessage({ name: e.target.value });
   };
   const handleSubmit = () => {
     console.log(password);
@@ -49,29 +51,19 @@ function HomePage() {
         <form>
           <input
             className="form-control"
-            font-family="monospace"
+            fontFamily="monospace"
             type="password"
             value={password}
             onChange={handlePasswordChange}
             onKeyDown={handleKeyPress}
           />
           <label className="sos-password-form">
-            Fill in password and press Enter
+          {t('passwordMessage')}
           </label>
         </form>
       </div>
     </div>
   );
 }
-
-const sendOSCMessage = async (data) => {
-  try {
-    //const data = { name: "Erik" };
-    await axios.post("http://localhost:9000/send-osc", data);
-    console.log("OSC message sent successfully");
-  } catch (error) {
-    console.error("Error sending OSC message", error);
-  }
-};
 
 export default HomePage;

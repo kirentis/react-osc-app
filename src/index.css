@@ -80,7 +80,8 @@ h2 {
 }
 
 .sos-password-form {
-  font-size: 2rem;
+  font-size: 1rem;
+  text-align: center;
 }
 
 .sos-nav-top,
@@ -106,6 +107,7 @@ h2 {
 
 .ascii-art-pre {
   height: 12em; /* Adjust the height as needed */
+  overflow: hidden;
 }
 
 .instructions {

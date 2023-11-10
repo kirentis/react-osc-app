@@ -1,0 +1,17 @@
+{
+    "passwordMessage": "Voer het wachtwoord in en druk op Enter",
+    "mainMenu": "Hoofdmenu",
+    "pressFuntionKey": "Druk op de functietoets voor het gewenste programma.",
+    "calculateCourse": "Bereken koers",
+    "floodInstructions": "Instructies wateroverlast",
+    "icebegDetection": "Detectiesysteem ijsbergen",
+    "torpedoLaunch": "Torpedo lanceersysteem",
+    "actualCoordinate": "Coördinaat huidige locatie",
+    "desiredCoordinate": "Coördinaat gewenste bestemming",
+    "calculate": "BEREKENING MAKEN",
+    "instructions": "INSTRUCTIES KOERS INSTELLEN",
+    "autoPilotOff": "Zet autopilot uit",
+    "turnWheel": "Draai aan stuurwiel ",
+    "setCrouse": "Stel gewenste koers in ",
+    "autoPilotOn": "Zet autopilot aan   "
+}

@@ -1,0 +1,17 @@
+{
+    "passwordMessage": "Fill in the password and press Enter",
+    "mainMenu": "Main menu",
+    "pressFuntionKey": "Press the function key for the desired program.",
+    "calculateCourse": "Calculate course",
+    "floodInstructions": "Flooding instructions",
+    "icebegDetection": "Iceberg detection system",
+    "torpedoLaunch": "Torpedo launching system",
+    "actualCoordinate": "Coordinate current course",
+    "desiredCoordinate": "Desired coordinate",
+    "calculate": "CALCULATE",
+    "instructions": "INSTRUCTIONS SETTING COURSE",
+    "autoPilotOff": "Turn autopilot off",
+    "turnWheel": "Turn steering wheel ",
+    "setCrouse": "Set desired course ",
+    "autoPilotOn": "Turn autopilot on   "
+}

@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
+import { useTranslation } from "react-i18next";
 
 const ValidationPage = () => {
+  const { t } = useTranslation();
   const [inputValues, setInputValues] = useState(["", "", "", ""]);
   let [error, setError] = useState("");
   const [course, setCourse] = useState("");
@@ -18,6 +20,7 @@ const ValidationPage = () => {
 
       if (isValid) {
         //send OSC MESSAGE
+
         setCourse(i + 1);
         setError("");
         return true;
@@ -93,7 +96,7 @@ const ValidationPage = () => {
               placeholder="------"
             />
           </div>
-          <div className="sos-text-label">F11 = BEREKENING MAKEN</div>
+          <div className="sos-text-label">F11 = {t("calculate")}</div>
           <div className="col co-container">
             {error && <p>{error}</p>}
             {course === 1 && <p>De Koers is 78 graden</p>}
@@ -102,15 +105,11 @@ const ValidationPage = () => {
         </div>
         <div className="col-4 instructions">
           <div className="row">
-            INSTRUCTIES KOERS INSTELLEN
-            <br />
-            - Zet autopilot uit 
-            <br />
-            - Draai aan stuurwiel  
-            <br />
-            - Stel gewenste koers in 
-            <br />
-            - Zet autopilot aan   
+            {t("instructions")}
+            <br />- {t("autoPilotOff")}
+            <br />- {t("turnWheel")}
+            <br />- {t("setCourse")}
+            <br />- {t("autoPilotOn")}
             <br />
           </div>
         </div>

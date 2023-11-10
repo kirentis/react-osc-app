@@ -1,37 +1,69 @@
 const express = require("express");
+const http = require("http");
+const socketIO = require("socket.io");
 const { Client, Server } = require("node-osc");
 const cors = require("cors");
 
 const app = express();
-const port = 9000;
+const server = http.createServer(app);
+const io = socketIO(server, {
+  cors: {
+    origin: "http://localhost:3000",
+    methods: ["GET", "POST"],
+  },
+});
 
-// Middleware for parsing JSON and URL-encoded request bodies
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-
-// Use the cors middleware to enable CORS
 app.use(cors());
 
-app.listen(port, () => {
-  console.log(`Server is running on http://localhost:${port}`);
+app.use((req, res, next) => {
+  console.log("CORS middleware applied");
+  cors()(req, res, next);
 });
 
-// Create an OSC server that listens on port 3333
-const oscServer = new Server(9000, "0.0.0.0", () => {
-  console.log("OSC Server is listening");
-});
+// Handle WebSocket connections
+io.on("connection", (socket) => {
+  console.log("WebSocket connected");
 
-// Define a route to receive OSC messages and respond to HTTP requests
-app.post("/send-osc", (req, res) => {
-  //console.log("GELUKT");
-  console.log(req.body.name);
-  const client = new Client("127.0.0.1", 7000);
-  client.send("/oscAddress", 200, () => {
-    //console.log("GESTUURD");
+  // Handle WebSocket events here
+
+  socket.on("disconnect", () => {
+    console.log("WebSocket disconnected");
   });
 });
 
-oscServer.on("message", function (msg) {
-  console.log(`Message: ${msg}`);
-  //oscServer.close();
+// Handle OSC messages
+const oscServer = new Server(3001, "localhost");
+
+oscServer.on("listening", () => {
+  console.log("OSC Server is listening.");
 });
+
+oscServer.on("message", (msg) => {
+  console.log(`OSC Message: ${msg}`);
+  // Emit the OSC message to all connected WebSocket clients
+  io.emit("oscMessage", msg);
+
+  // You can perform actions on all React pages based on the received OSC message here
+  // For example:
+  // io.emit("performAction", msg);
+});
+
+// Function to send OSC message from React pages
+const sendOSCMessage = (address, args) => {
+  const oscClient = new Client("0.0.0.0", 53000);
+  oscClient.send(address, args, (err) => {
+    if (err) console.error(err);
+    oscClient.close();
+  });
+};
+
+// Example: You can call this function from React pages to send OSC messages
+// sendOSCMessage("/example", ["arg1", "arg2"]);
+
+const PORT = 3002;
+server.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+});
+
+// Export the necessary objects/functions for use in React pages
+module.exports = { io, sendOSCMessage };

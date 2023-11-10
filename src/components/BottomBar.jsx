@@ -2,6 +2,7 @@
 
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const HandleKeyPress = (e, navigate) => {
   if (e.key === "Enter" && e.shiftKey) {
@@ -11,6 +12,7 @@ const HandleKeyPress = (e, navigate) => {
 };
 
 function BottomBar() {
+  const { t } = useTranslation();
   const navigate = useNavigate(); // Use useNavigate hook directly in the functional component
 
   useEffect(() => {
@@ -32,7 +34,7 @@ function BottomBar() {
       <div className="col-6 sos-nav-bottom-left">
         (c) copyright 1988 – Titan IC Systems
       </div>
-      <div className="col-6 sos-nav-bottom-right">F12 = HOOFDMENU</div>
+      <div className="col-6 sos-nav-bottom-right">F12 = {t("mainMenu")}</div>
     </div>
   );
 }

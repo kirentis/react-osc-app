@@ -1,5 +1,3 @@
-// src/App.js
-import React from "react";
 import Layout from "./components/Layout";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import TopBar from "./components/TopBar";
@@ -18,6 +16,7 @@ function App() {
         <TopBar />
         <Routes>
           <Route path="/" element={<Login />} />
+          <Route path="/Home" element={<Login />} />
           <Route path="/Dashboard" element={<Dashboard />} />
           <Route path="/Course" element={<Course />} />
           <Route path="/Instruction" element={<Instruction />} />
