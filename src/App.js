@@ -8,20 +8,23 @@ import Course from "./pages/Course";
 import Instruction from "./pages/Instruction";
 import Iceberg from "./pages/Iceberg";
 import Torpedo from "./pages/Torpedo";
+import OSCpage from "./pages/OSCpage";
 
 function App() {
   return (
     <Layout>
       <BrowserRouter>
+        <OSCpage />
         <TopBar />
         <Routes>
-          <Route path="/" element={<Login />} />
+          <Route path="/Login" element={<Login />} />
           <Route path="/Home" element={<Login />} />
           <Route path="/Dashboard" element={<Dashboard />} />
           <Route path="/Course" element={<Course />} />
           <Route path="/Instruction" element={<Instruction />} />
           <Route path="/Iceberg" element={<Iceberg />} />
           <Route path="/Torpedo" element={<Torpedo />} />
+          <Route path="/OSCpage" element={<OSCpage />} />
         </Routes>
         <BottomBar />
       </BrowserRouter>

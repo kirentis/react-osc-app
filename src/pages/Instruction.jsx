@@ -1,12 +1,17 @@
 import React, { useState } from "react";
+import { sendOscMessage } from "../components/oscUtility";
 
 function PipeNumber({ placeholder, maxLength, formid }) {
   const [pipe, setPipe] = useState("");
 
-  const handleCoordinateChange = (event) => {
+  const handleInputChange = (event) => {
     const inputValue = event.target.value;
 
     setPipe(inputValue);
+    sendOscMessage({
+      url: `/UPDATE/SOS/LEIDING/STATUS`,
+      name: inputValue,
+    });
   };
 
   return (
@@ -18,7 +23,7 @@ function PipeNumber({ placeholder, maxLength, formid }) {
         value={pipe}
         placeholder={placeholder}
         maxLength={maxLength}
-        onChange={handleCoordinateChange}
+        onChange={handleInputChange}
       />
     </div>
   );

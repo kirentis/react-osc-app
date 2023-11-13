@@ -8,7 +8,7 @@ import i18n from "./languages/i18n";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 console.log(i18n);
 root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
+  // <React.StrictMode>
+  <App />
+  // </React.StrictMode>
 );

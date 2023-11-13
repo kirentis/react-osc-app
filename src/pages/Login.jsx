@@ -1,6 +1,7 @@
 import React, {useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from 'react-i18next';
+import { sendOscMessage } from "../components/oscUtility";
 
 function HomePage() {
 const { t } = useTranslation();
@@ -10,14 +11,16 @@ const { t } = useTranslation();
 
   const handlePasswordChange = (e) => {
     setPassword(e.target.value);
-    //sendOSCMessage({ name: e.target.value });
+    sendOscMessage({ url:'/UPDATE/SOS/LOGIN/STATUS', name: e.target.value })
+    
   };
   const handleSubmit = () => {
-    console.log(password);
-    // Basic password validation - replace with your logic.
+    // Password validation .
     if (password === "1234") {
-      // Redirect to Page 1 if the password is correct.
+      // Redirect to the Dashboard page if the password is correct.
       navigate("/Dashboard");
+      // send password ok 
+      sendOscMessage({ url:'/UPDATE/SOS/LOGIN/STATUS', name:"wachtwoord goed ingevuld"})
     } else {
       setError("Incorrect password. Please try again.");
     }

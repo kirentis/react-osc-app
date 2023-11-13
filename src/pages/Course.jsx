@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
+import { sendOscMessage } from "../components/oscUtility";
 
 const ValidationPage = () => {
   const { t } = useTranslation();
@@ -36,6 +37,10 @@ const ValidationPage = () => {
     const newInputValues = [...inputValues];
     newInputValues[index] = value;
     setInputValues(newInputValues);
+    sendOscMessage({
+      url: `/UPDATE/SOS/COURSE${index + 1}/STATUS`,
+      name: value,
+    });
   };
 
   const handleKeyPress = (e) => {
