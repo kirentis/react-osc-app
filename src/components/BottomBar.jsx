@@ -5,8 +5,8 @@ import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
 const HandleKeyPress = (e, navigate) => {
-  if (e.key === "Enter" && e.shiftKey) {
-    console.log("Shift+Enter pressed");
+  if (e.key === "F12") {
+    console.log("F12");
     navigate("/Dashboard");
   }
 };

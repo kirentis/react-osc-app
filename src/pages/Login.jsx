@@ -22,7 +22,7 @@ const { t } = useTranslation();
   const handleSubmit = () => {
     let theStatus = {pwok:"wachtwoord OK", pwNotOK:"wachtwoord NIET OK"}
     // Password validation .
-    if (password === "1234") {
+    if (password === "1411") {
       // Redirect to the Dashboard page if the password is correct.
       navigate("/Dashboard");
       // send password ok 

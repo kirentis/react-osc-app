@@ -72,7 +72,7 @@ const ValidationPage = () => {
   };
 
   const handleKeyPress = (e) => {
-    if (e.shiftKey && e.key === "L") {
+    if (e.key === "F11") {
       if (validateInput()) {
         setError("ERROR");
       }

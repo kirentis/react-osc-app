@@ -44,7 +44,7 @@ server.listen(3001, () => {
 
 //========setup osc server =========
 
-oscServer = new OSCServer(3333, "0.0.0.0", () => {
+oscServer = new OSCServer(5005, "0.0.0.0", () => {
   console.log("OSC Server is listening");
 });
 
