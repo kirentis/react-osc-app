@@ -1,24 +1,27 @@
 import io from "socket.io-client";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { sendOscMessage } from "../components/oscUtility";
 
 const socket = io.connect("http://localhost:3001");
 
 const OSCpage = () => {
   const navigate = useNavigate();
-  const [message, setMessage] = useState("");
-  //const [messageReceived, setMessageReceived] = useState("");
 
   useEffect(() => {
-    socket.on("receivedOsc", (data) => {
-      //setMessageReceived(data);
+    const handleReceivedOsc = (data) => {
       navigate(data[0]);
       console.log("OSC message received from server" + data);
-    });
+    };
+
+    socket.on("receivedOsc", handleReceivedOsc);
+
+    return () => {
+      // Clean up the event listener when the component is unmounted
+      socket.off("receivedOsc", handleReceivedOsc);
+    };
   }, [navigate]);
 
-  return <></>;
+  return null;
 };
 
 export default OSCpage;

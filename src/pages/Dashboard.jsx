@@ -39,26 +39,26 @@ function BottomBar() {
 
   return (
     <div>
-      <h1>{t("mainMenu")}</h1>
-      <p>{t("pressFuntionKey")}</p>
+      <h1>{t("ALG_mainMenu")}</h1>
+      <p>{t("ALG_pressFuntionKey")}</p>
       <table>
         <thead></thead>
         <tbody>
           <tr>
             <td>F1 - </td>
-            <td>{t("calculateCourse")}</td>
+            <td>{t("ALG_calculateCourse")}</td>
           </tr>
           <tr>
             <td>F2 - </td>
-            <td>{t("floodInstructions")}</td>
+            <td>{t("ALG_floodingInstructions")}</td>
           </tr>
           <tr>
             <td>F3 - </td>
-            <td>{t("icebegDetection")}</td>
+            <td>{t("ALG_icebegDetection")}</td>
           </tr>
           <tr>
             <td>F4 - </td>
-            <td>{t("torpedoLaunch")}</td>
+            <td>{t("ALG_torpedoLaunch")}</td>
           </tr>
         </tbody>
       </table>

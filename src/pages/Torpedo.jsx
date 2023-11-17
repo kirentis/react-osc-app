@@ -1,15 +1,14 @@
+import { useTranslation } from "react-i18next";
 function Torpedo() {
+  const { t } = useTranslation();
   return (
     <div>
       <div className="container">
-        <h1>TORPEDO LANCEERSYSTEEM</h1>
+        <h1>{t("TOR_torpedoLaunchTitle")}</h1>
 
         <div className="row">
           <div className="col-6">
-            <p>
-              ERROR The program can’t start because TORPEDO.dll is missing from
-              your computer. Try reinstalling Windows 95 to fix this problem.
-            </p>
+            <p>{t("TOR_torpedoLaunchContent")}</p>
           </div>
 
           <div className="col-4"></div>

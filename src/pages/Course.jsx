@@ -1,35 +1,61 @@
 import React, { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { sendOscMessage } from "../components/oscUtility";
+import { sendOscMessage, destinations } from "../components/oscUtility";
 
 const ValidationPage = () => {
+  let theCourse = "";
   const { t } = useTranslation();
   const [inputValues, setInputValues] = useState(["", "", "", ""]);
   let [error, setError] = useState("");
   const [course, setCourse] = useState("");
 
-  const arrays = [
-    ["123456", "123456", "123456", "123456"],
-    ["111111", "111111", "111111", "111111"],
+  const rangeValidation = [
+    [
+      { min: 292288, max: 295085 }, // Eerste keer huidige locatie
+      { min: 718505, max: 724888 }, // Eerste keer huidige locatie
+      { min: 303842, max: 303842 }, // Eerste keer haven - Mayport
+      { min: 814153, max: 814153 }, // Eerste keer haven - Mayport
+      //koers 278 graden
+    ],
+    [
+      { min: 292288, max: 295085 }, // Tweede keer keer huidige locatie
+      { min: 718505, max: 724888 }, // Tweede keer keer huidige locatie
+      { min: 303842, max: 303842 }, // Eerste keer haven - Mayport
+      { min: 814153, max: 814153 }, // Eerste keer haven - Mayport
+      //koers 297 graden
+    ],
+    [
+      { min: 292288, max: 295085 }, // Tweede keer keer huidige locatie
+      { min: 718505, max: 724888 }, // Tweede keer keer huidige locatie
+      { min: 254324, max: 254324 }, // Tweede keer naar het eiland
+      { min: 704557, max: 704557 }, // Tweede keer naar het eiland
+      //koers 117 graden
+    ],
   ];
 
   const validateInput = () => {
-    for (let i = 0; i < arrays.length; i++) {
-      const isValid = inputValues.every(
-        (value, index) => value === arrays[i][index]
-      );
+    for (let i = 0; i < rangeValidation.length; i++) {
+      const isValid = inputValues.every((value, index) => {
+        const { min, max } = rangeValidation[i][index];
+        // Perform the range check for each array entry
+        return parseInt(value) >= min && parseInt(value) <= max;
+      });
 
       if (isValid) {
-        //send OSC MESSAGE
-
         setCourse(i + 1);
+
+        //send OSC MESSAGE
+        sendOscMessage({
+          destination: destinations.sis,
+          address: "/set_target_course",
+          data: theCourse,
+        });
         setError("");
         return true;
       }
     }
     setError("Validation failed");
     //send OSC MESSAGE
-    setCourse("");
     return false;
   };
 
@@ -37,16 +63,18 @@ const ValidationPage = () => {
     const newInputValues = [...inputValues];
     newInputValues[index] = value;
     setInputValues(newInputValues);
+
     sendOscMessage({
-      url: `/UPDATE/SOS/COURSE${index + 1}/STATUS`,
-      name: value,
+      destination: destinations.openstage,
+      address: `/UPDATE/SOS/COURSE${index + 1}/STATUS`,
+      data: value,
     });
   };
 
   const handleKeyPress = (e) => {
     if (e.shiftKey && e.key === "L") {
       if (validateInput()) {
-        setError("");
+        setError("ERROR");
       }
     }
   };
@@ -61,10 +89,10 @@ const ValidationPage = () => {
   return (
     <div>
       <div className="row">
-        <h1>BEREKENEN KOERS</h1>
+        <h1>{t("KRS_calculateCourse")}</h1>
         <div className="col-6">
           <div className="co-container co-1">
-            <div>Coördinaat huidige locatie</div>
+            <div> {t("KRS_actualCoordinate")}</div>
             <input
               className="form-control sos-location caret-color"
               type="text"
@@ -83,7 +111,7 @@ const ValidationPage = () => {
             />
           </div>
           <div className="co-container co-1">
-            <div>Coördinaat gewenste bestemming</div>
+            <div>{t("KRS_desiredCoordinate")}</div>
             <input
               className="form-control sos-location caret-color"
               type="text"
@@ -101,20 +129,25 @@ const ValidationPage = () => {
               placeholder="------"
             />
           </div>
-          <div className="sos-text-label">F11 = {t("calculate")}</div>
+          <div className="sos-text-label">F11 = {t("KRS_calculate")}</div>
           <div className="col co-container">
             {error && <p>{error}</p>}
-            {course === 1 && <p>De Koers is 78 graden</p>}
-            {course === 2 && <p>De Koers is 32 graden</p>}
+            {course === 1 && <p>De Koers is 278 graden</p>}
+            {course === 2 && <p>De Koers is 297 graden</p>}
+            {course === 3 && <p>De Koers is 117 graden</p>}
           </div>
         </div>
         <div className="col-4 instructions">
           <div className="row">
-            {t("instructions")}
-            <br />- {t("autoPilotOff")}
-            <br />- {t("turnWheel")}
-            <br />- {t("setCourse")}
-            <br />- {t("autoPilotOn")}
+            {t("KRS_instructions")}
+            <br />
+            Stap 1 {t("KRS_autoPilotOff")}
+            <br />
+            Stap 2 {t("KRS_turnWheel")}
+            <br />
+            Stap 3 {t("KRS_setCourse")}
+            <br />
+            Stap 4 {t("KRS_autoPilotOn")}
             <br />
           </div>
         </div>

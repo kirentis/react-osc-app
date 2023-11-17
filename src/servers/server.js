@@ -21,15 +21,16 @@ let oscServer; // Declare oscServer globally
 
 //setup  websocket connection
 io.on("connection", (socket) => {
-  console.log(`User Connected: ${socket.id}`); //log when user connects
+  //console.log(`User Connected: ${socket.id}`); //log when user connects
 
   //receive osc data from clients
-  socket.on("sendOsc", (data) => {
-    console.log("received_Osc_message from client", data); // log data from Client
-    console.log(typeof data.name);
+  socket.on("sendOsc", ({ ip, port, address, data }) => {
+    // console.log(ip, port);
+    // console.log("received_Osc_message from client", data); // log data from Client
+
     // send osc message to external clients
-    const client = new Client("localhost", 53001);
-    client.send(data.url, data.name, (err) => {
+    const client = new Client(ip, port);
+    client.send(address, data, (err) => {
       if (err) console.error(err);
       client.close();
     });
@@ -48,9 +49,14 @@ oscServer = new OSCServer(3333, "0.0.0.0", () => {
 });
 
 //when an osc message is sent from external client
-// is is send to all clients
+// it is send to all clients
 oscServer.on("message", function (msg) {
-  console.log(`Message: ${msg}`);
+  // console.log(`Message: ${msg}`);
+  if (msg[0] == "/language") {
+    io.emit("language", msg[1]);
+    return;
+  }
+
   io.emit("receivedOsc", msg);
-  oscServer.close();
+  //oscServer.close();
 });

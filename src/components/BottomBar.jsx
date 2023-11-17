@@ -34,7 +34,9 @@ function BottomBar() {
       <div className="col-6 sos-nav-bottom-left">
         (c) copyright 1988 – Titan IC Systems
       </div>
-      <div className="col-6 sos-nav-bottom-right">F12 = {t("mainMenu")}</div>
+      <div className="col-6 sos-nav-bottom-right">
+        F12 = {t("ALG_mainMenu")}
+      </div>
     </div>
   );
 }

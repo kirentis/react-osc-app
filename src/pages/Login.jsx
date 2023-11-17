@@ -1,7 +1,7 @@
 import React, {useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from 'react-i18next';
-import { sendOscMessage } from "../components/oscUtility";
+import { sendOscMessage,destinations } from "../components/oscUtility";
 
 function HomePage() {
 const { t } = useTranslation();
@@ -11,18 +11,35 @@ const { t } = useTranslation();
 
   const handlePasswordChange = (e) => {
     setPassword(e.target.value);
-    sendOscMessage({ url:'/UPDATE/SOS/LOGIN/STATUS', name: e.target.value })
+    
+    sendOscMessage({
+      destination: destinations.openstage,
+      address: `/UPDATE/SOS/LOGIN/STATUS`,
+      data: e.target.value ,
+    });
     
   };
   const handleSubmit = () => {
+    let theStatus = {pwok:"wachtwoord OK", pwNotOK:"wachtwoord NIET OK"}
     // Password validation .
     if (password === "1234") {
       // Redirect to the Dashboard page if the password is correct.
       navigate("/Dashboard");
       // send password ok 
-      sendOscMessage({ url:'/UPDATE/SOS/LOGIN/STATUS', name:"wachtwoord goed ingevuld"})
+      sendOscMessage({
+        destination: destinations.openstage,
+        address: `/UPDATE/SOS/LOGIN/STATUS`,
+        data: theStatus.pwok
+      });
+      
     } else {
       setError("Incorrect password. Please try again.");
+       // send password not ok 
+       sendOscMessage({
+        destination: destinations.openstage,
+        address: `/UPDATE/SOS/LOGIN/STATUS`,
+        data: theStatus.pwNotok
+      });
     }
   };
 
