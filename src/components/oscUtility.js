@@ -8,7 +8,7 @@ const sis = {
 };
 
 const openstage = {
-  ip: "localhost",
+  ip: "192.168.1.60",
   port: "53001",
 };
 
