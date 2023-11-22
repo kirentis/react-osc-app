@@ -5,7 +5,8 @@ const { Server } = require("socket.io");
 const cors = require("cors");
 const { Client, Server: OSCServer } = require("node-osc");
 
-app.use(cors());
+//app.use(cors());
+app.use(cors({ origin: "http://192.168.1.24:3000" }));
 
 const server = http.createServer(app);
 
