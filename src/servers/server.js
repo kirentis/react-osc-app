@@ -51,10 +51,18 @@ oscServer = new OSCServer(5005, "0.0.0.0", () => {
 //when an osc message is sent from external client
 // it is send to all clients
 oscServer.on("message", function (msg) {
-  // console.log(`Message: ${msg}`);
-  if (msg[0] == "/language") {
+  //console.log(`Message: ${msg}`);
+  if (msg[0] === "/language") {
     io.emit("language", msg[1]);
     return;
+  }
+  //send pong
+  if (msg[0] === "/ping") {
+    const client = new Client("192.168.1.60", "53000");
+    client.send(`/cue/TR_SOS_REPLY_PONG/start`, "", (err) => {
+      if (err) console.error(err);
+      client.close();
+    });
   }
 
   io.emit("receivedOsc", msg);
